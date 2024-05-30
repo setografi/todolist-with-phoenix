@@ -1,0 +1,16 @@
+<h1 class="text-2xl font-bold">Todo List</h1>
+
+<%= link "New Todo", to: Routes.todo_path(@conn, :new), class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+
+<ul class="mt-4">
+  <%= for todo <- @todos do %>
+    <li class="flex justify-between items-center bg-white p-4 mb-2 shadow-sm">
+      <% completed_class = if todo.completed, do: "line-through", else: "" %>
+      <span class={"#{completed_class}"}><%= todo.title %></span>
+      <div>
+        <%= link "Edit", to: Routes.todo_path(@conn, :edit, todo), class: "text-blue-500" %>
+        <%= link "Delete", to: Routes.todo_path(@conn, :delete, todo), method: :delete, data: [confirm: "Are you sure?"], class: "text-red-500 ml-2" %>
+      </div>
+    </li>
+  <% end %>
+</ul>
